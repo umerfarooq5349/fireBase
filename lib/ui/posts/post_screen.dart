@@ -24,7 +24,7 @@ class _PostScreenState extends State<PostScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Post Scren',
+        title: const Text('Post Screen',
             style: TextStyle(
               color: Colors.white,
             )),
