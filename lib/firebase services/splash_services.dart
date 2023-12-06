@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_app/ui/auth/login_screen.dart';
 import 'package:firebase_app/ui/firestore/firestor_list_screen.dart';
-import 'package:firebase_app/ui/posts/post_screen.dart';
+// import 'package:firebase_app/ui/posts/post_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';

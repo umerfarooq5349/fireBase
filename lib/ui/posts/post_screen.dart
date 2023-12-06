@@ -130,8 +130,8 @@ class _PostScreenState extends State<PostScreen> {
                                     .toastMessage(error.toString(), Colors.red);
                               });
                             },
-                            leading: Icon(Icons.delete_outline),
-                            title: Text('Delete'),
+                            leading: const Icon(Icons.delete_outline),
+                            title: const Text('Delete'),
                           ),
                         ),
                       ],
@@ -177,8 +177,8 @@ class _PostScreenState extends State<PostScreen> {
                                     .toastMessage(error.toString(), Colors.red);
                               });
                             },
-                            leading: Icon(Icons.delete_outline),
-                            title: Text('Delete'),
+                            leading: const Icon(Icons.delete_outline),
+                            title: const Text('Delete'),
                           ),
                         ),
                       ],

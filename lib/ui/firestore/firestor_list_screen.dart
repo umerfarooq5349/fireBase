@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_app/ui/auth/login_screen.dart';
 import 'package:firebase_app/ui/firestore/add_firestore_item.dart';
-import 'package:firebase_app/ui/posts/add_post.dart';
+
 import 'package:firebase_app/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
+
 import 'package:flutter/material.dart';
 
 class FirestoreStore extends StatefulWidget {
@@ -17,7 +16,7 @@ class FirestoreStore extends StatefulWidget {
 
 class _FirestoreStoreState extends State<FirestoreStore> {
   final _auth = FirebaseAuth.instance;
-  final userdata = FirebaseFirestore.instance.collection('Users');
+  final userdata = FirebaseFirestore.instance.collection('Users').snapshots();
   final searchQuery = TextEditingController();
 
   final updateText = TextEditingController();
@@ -89,15 +88,43 @@ class _FirestoreStoreState extends State<FirestoreStore> {
               },
             ),
           ),
-          Expanded(
-              child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                title: Text('UmEr'),
-              );
+          StreamBuilder(
+            stream: userdata,
+            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator(
+                  color: Colors.deepPurple,
+                );
+              } else if (snapshot.hasError) {
+                return const Center(
+                  child: Text('Error in fetching data'),
+                );
+              } else {
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final description =
+                          snapshot.data!.docs[index]['description'].toString();
+
+                      if (searchQuery.text.isEmpty ||
+                          description
+                              .toLowerCase()
+                              .contains(searchQuery.text.toLowerCase())) {
+                        return ListTile(
+                          title: Text(description),
+                        );
+                      } else {
+                        return Center(
+                          child: Container(),
+                        );
+                      }
+                    },
+                  ),
+                );
+              }
             },
-          )),
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
