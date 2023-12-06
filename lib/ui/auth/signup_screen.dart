@@ -1,4 +1,5 @@
 import 'package:firebase_app/ui/auth/login_screen.dart';
+import 'package:firebase_app/ui/auth/loin_with_phone.dart';
 import 'package:firebase_app/utils/utils.dart';
 import 'package:firebase_app/widgets/rouded_button.dart';
 
@@ -54,16 +55,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
           Utils().toastMessage(error.toString(), Colors.red);
         },
       );
-      print('email true');
     } else {
       if (!isEmail(emailController.text.toString())) {
         Utils().toastMessage('Enter valid email', Colors.red);
       }
-      ;
+
       if (passwordController.text.toString().length <= 5) {
         Utils().toastMessage('Password must be 6 digit long', Colors.red);
       }
-      ;
     }
   }
 
@@ -71,7 +70,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sign Up "),
+        title: const Text(
+          "Sign Up ",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
         automaticallyImplyLeading: false,
         centerTitle: true,
       ),
@@ -267,7 +271,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
                 RoundedButton(
                   title: 'Sign Up',
@@ -277,9 +281,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     }
                   },
                   loading: loading,
-                ),
-                const SizedBox(
-                  height: 10,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -306,6 +307,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     )
                   ],
                 ),
+                ElevatedButton(
+                    style: const ButtonStyle(
+                      backgroundColor:
+                          MaterialStatePropertyAll(Colors.transparent),
+                      elevation: MaterialStatePropertyAll(0),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginWithPhoneNumber(),
+                          ));
+                    },
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: Colors.deepPurple,
+                          border:
+                              Border.all(width: 2, color: Colors.deepPurple)),
+                      child: const Icon(
+                        Icons.phone,
+                        size: 25.9,
+                        color: Colors.white,
+                      ),
+                    )),
               ],
             ),
           ),

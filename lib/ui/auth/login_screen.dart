@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => PostScreen(),
+                builder: (context) => const PostScreen(),
               ));
         },
       ).catchError(
@@ -55,11 +55,9 @@ class _LoginScreenState extends State<LoginScreen> {
       if (!isEmail(emailController.text.toString())) {
         Utils().toastMessage('Enter valid email', Colors.red);
       }
-      ;
       if (passwordController.text.toString().length <= 5) {
         Utils().toastMessage('Password must be 6 digit long', Colors.red);
       }
-      ;
     }
   }
 
@@ -74,7 +72,12 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Login "),
+        title: const Text(
+          "Login ",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
         automaticallyImplyLeading: false,
         centerTitle: true,
       ),

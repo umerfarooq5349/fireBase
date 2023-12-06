@@ -18,7 +18,7 @@ class SplashService {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => PostScreen(),
+                builder: (context) => const PostScreen(),
               ));
         },
       );

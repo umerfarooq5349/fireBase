@@ -15,14 +15,22 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        appBarTheme: AppBarTheme(
-          color: Colors.deepPurple[700],
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.deepPurple,
+          // color: Colors.white,
+          // titleTextStyle: TextStyle(color: Colors.white),
+        ),
+        buttonTheme: const ButtonThemeData(
+          buttonColor: Colors.deepPurple,
+        ),
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.deepPurple,
+          backgroundColor: Colors.white,
         ),
       ),
       title: 'FireBase',
