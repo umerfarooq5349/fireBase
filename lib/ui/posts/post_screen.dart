@@ -1,6 +1,7 @@
 import 'package:firebase_app/ui/auth/login_screen.dart';
 import 'package:firebase_app/ui/posts/add_post.dart';
 import 'package:firebase_app/utils/utils.dart';
+// import 'package:firebase_app/widgets/rouded_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -193,6 +194,17 @@ class _PostScreenState extends State<PostScreen> {
               },
             ),
           ),
+          //  RoundedButton(
+          //     title: 'Add',
+          //     onTap: () {
+          //       Navigator.push(
+          //           context,
+          //           MaterialPageRoute(
+          //             builder: (context) => const AddPostScreen(),
+          //           ));
+          //     },
+
+          //     loading: false)
         ],
       ),
       floatingActionButton: FloatingActionButton(

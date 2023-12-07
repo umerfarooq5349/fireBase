@@ -1,5 +1,8 @@
+import 'package:firebase_app/ui/auth/forgot_password.dart';
 import 'package:firebase_app/ui/auth/signup_screen.dart';
-import 'package:firebase_app/ui/posts/post_screen.dart';
+// import 'package:firebase_app/ui/firestore/firestor_list_screen.dart';
+import 'package:firebase_app/ui/upload_image.dart';
+// import 'package:firebase_app/ui/posts/post_screen.dart';
 import 'package:firebase_app/utils/utils.dart';
 import 'package:firebase_app/widgets/rouded_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -40,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const PostScreen(),
+                builder: (context) => const UploadImageScreen(),
               ));
         },
       ).catchError(
@@ -232,8 +235,25 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   loading: loading,
                 ),
-                const SizedBox(
-                  height: 10,
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ForgotPasswordScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "Forgot Password",
+                      style: TextStyle(
+                          color: Colors.deepPurple,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
