@@ -4,7 +4,7 @@ import 'package:firebase_app/utils/utils.dart';
 import 'package:firebase_app/widgets/rouded_button.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:image_picker_web/image_picker_web.dart';
+import 'package:firebase_storage/firebase_storage.dart' as Storage;
 
 class UploadImageScreen extends StatefulWidget {
   const UploadImageScreen({super.key});
@@ -18,22 +18,26 @@ class _UploadImageScreenState extends State<UploadImageScreen> {
 
   File? _image;
   final picker = ImagePicker();
+  Storage.FirebaseStorage storage = Storage.FirebaseStorage.instance;
 
   Future getGalleryImage() async {
     final pickedImage =
         await picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
-    setState(() {
-      loading = true;
-      if (pickedImage != null) {
-        _image = File(pickedImage.path);
-        print("heelo this newpath " + _image!.path.toString());
-        loading = false;
-      } else {
-        loading = false;
-        Utils().toastMessage('Pick Image from gallery ', Colors.red);
-        print("heelo" + _image!.path.toString());
-      }
-    });
+
+    if (pickedImage != null) {
+      _image = File(pickedImage.path);
+      print("heelo this newpath " + _image!.path.toString());
+    } else {
+      Utils().toastMessage('Pick Image from gallery ', Colors.red);
+      print("heelo" + _image!.path.toString());
+    }
+    Storage.Reference storageRef =
+        Storage.FirebaseStorage.instance.ref('/images/1234');
+
+    Storage.UploadTask uploadTask = storageRef.putFile(_image!.absolute);
+    await Future.value(uploadTask);
+    var imgPath = storageRef.getDownloadURL();
+    print(imgPath);
   }
 
   @override
@@ -76,7 +80,7 @@ class _UploadImageScreenState extends State<UploadImageScreen> {
           ),
           RoundedButton(
               title: 'Upload Image',
-              onTap: () {
+              onTap: () async {
                 getGalleryImage();
               },
               loading: loading)
