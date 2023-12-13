@@ -101,7 +101,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         keyboardType: TextInputType.emailAddress,
                         decoration: const InputDecoration(
                           hintText: 'Name',
-                          helperText: 'Umer',
+                          helperText: 'xyz',
                           labelText: 'Name',
                           suffixIcon: Icon(Icons.email),
                           suffixIconColor: Colors.deepPurple,

@@ -1,5 +1,6 @@
 import 'package:firebase_app/utils/utils.dart';
 import 'package:firebase_app/widgets/rouded_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -14,8 +15,20 @@ class AddPostScreen extends StatefulWidget {
 class _AddPostScreenState extends State<AddPostScreen> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController addNoteController = TextEditingController();
-  final databaseRef = FirebaseDatabase.instance.ref('Post');
+
+  DatabaseReference dataRef = FirebaseDatabase.instance.ref();
+  final dataBase = FirebaseDatabase.instance;
+  String tableName = '';
   bool loading = false;
+
+  @override
+  void initState() {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    tableName = '/$uid/Post';
+    dataRef = dataBase.ref(tableName);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +39,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
             color: Colors.white,
           ),
         ),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: ListView(
         children: [
@@ -62,7 +76,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                         keyboardType: TextInputType.multiline,
                         decoration: const InputDecoration(
                           hintText: "What's in your mind",
-                          helperText: 'My self is umer',
+                          helperText: 'My self',
                           helperStyle:
                               TextStyle(color: Colors.deepPurple, fontSize: 16),
                           hintStyle:
@@ -118,7 +132,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
                       String id =
                           DateTime.now().microsecondsSinceEpoch.toString();
-                      databaseRef.child(id).set(
+                      dataRef.child(id).set(
                         {
                           'id': id,
                           'description': addNoteController.text.toString(),

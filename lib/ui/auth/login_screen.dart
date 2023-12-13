@@ -1,8 +1,9 @@
 import 'package:firebase_app/ui/auth/forgot_password.dart';
 import 'package:firebase_app/ui/auth/signup_screen.dart';
-// import 'package:firebase_app/ui/firestore/firestor_list_screen.dart';
-import 'package:firebase_app/ui/upload_image.dart';
-// import 'package:firebase_app/ui/posts/post_screen.dart';
+import 'package:firebase_app/ui/posts/post_screen.dart';
+
+// import 'package:firebase_app/ui/upload_image.dart';
+
 import 'package:firebase_app/utils/utils.dart';
 import 'package:firebase_app/widgets/rouded_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         loading = true;
       });
+      // _auth.
       _auth
           .signInWithEmailAndPassword(
               email: emailController.text.toString(),
@@ -43,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const UploadImageScreen(),
+                builder: (context) => const PostScreen(),
               ));
         },
       ).catchError(

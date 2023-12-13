@@ -15,11 +15,20 @@ class PostScreen extends StatefulWidget {
 }
 
 class _PostScreenState extends State<PostScreen> {
-  final _auth = FirebaseAuth.instance;
-  final dataRef = FirebaseDatabase.instance.ref('Post');
   final searchQuery = TextEditingController();
-
+  final _auth = FirebaseAuth.instance;
+  DatabaseReference dataRef = FirebaseDatabase.instance.ref();
+  final dataBase = FirebaseDatabase.instance;
+  String tableName = '';
   final updateText = TextEditingController();
+  @override
+  void initState() {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    tableName = '/$uid/Post';
+    dataRef = dataBase.ref(tableName);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

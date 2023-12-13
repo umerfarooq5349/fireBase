@@ -1,5 +1,6 @@
 import 'package:firebase_app/firebase_options.dart';
 import 'package:firebase_app/ui/splash_screen.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
@@ -8,6 +9,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  await FirebaseAppCheck.instance
+      // Your personal reCaptcha public key goes here:
+      .activate(
+    androidProvider: AndroidProvider.debug,
+    appleProvider: AppleProvider.debug,
+    // webProvider: ReCaptchaV3Provider(kWebRecaptchaSiteKey),
   );
   runApp(const MyApp());
 }
